@@ -1,0 +1,35 @@
+---
+title: "RStudioとGitでバージョン管理"
+author: "Shouhei TAKEUCHI"
+date: \today
+header-includes:
+   - \usepackage{zxjatype} # 日本語組版パッケージ
+   - \setmainfont{Meiryo} # 英語のメインフォント
+   - \setjamainfont{Meiryo} # 日本語のメインフォント
+   - \setmonofont{Yutapon coding Regular} # Rスクリプト部分のフォント
+output:
+  pdf_document:
+    latex_engine: xelatex # zxjatypeパッケージを使用するために変更
+    toc: true
+    toc_depth: 2 # 見出しの表示とその深さを指定
+fontsize: 12pt
+---
+\newpage
+
+# このドキュメントの目的
+
+RStudioとGitを使って、Rのコードのバージョン管理（変更履歴を残す）および共有ができるようになることを目的とする。
+RStudioとGitの連携において、テキストファイル以外を使うためには一工夫が必要なので、そちらについても軽く触れておく。\footnote{この資料では、RとRStudioのインストールが終わっていることを前提とする。}
+
+
+## 最終更新日時
+
+このファイルの最終更新日時：`r Sys.time()`
+
+
+# Gitとは？
+
+コードを書いたファイル（テキストファイル）をバージョン管理する際に、変更のたびにファイル名を変えて履歴を管理すると、ファイル数がふくれあがっていく。Gitは、そういう問題を解決するために、ファイルの「変更履歴を記録」しておくための仕組みとなる。
+
+サルでもわかるGit入門\footnote{http://www.backlog.jp/git-guide/}の入門編までを読んでみると使い方の簡単な説明があり、すごく理解の助けになる。最終的には、発展編のbranchまで理解しておきたい。
+

@@ -3,6 +3,7 @@
 .Rapp.history
 # Example code in package build process
 *-Ex.R
+*-Ex.Rmd
 *.tif
 # RStudio files
 .Rproj.user/
