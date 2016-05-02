@@ -1,2 +1,2 @@
-# rstudiogit
-RStudioでGitを使う方法について、まとめておく。
+# RStudioからgitを使う
+RStudioからgitを使う方法について、まとめておく。
