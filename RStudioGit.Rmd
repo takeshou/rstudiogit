@@ -18,18 +18,141 @@ fontsize: 12pt
 
 # このドキュメントの目的
 
-RStudioとGitを使って、Rのコードのバージョン管理（変更履歴を残す）および共有ができるようになることを目的とする。
-RStudioとGitの連携において、テキストファイル以外を使うためには一工夫が必要なので、そちらについても軽く触れておく。\footnote{この資料では、RとRStudioのインストールが終わっていることを前提とする。}
+Windows環境で、RStudioとGitを使って、Rのコードのバージョン管理（変更履歴を残す）および共有ができるようになることを目的とする。
+\footnote{Macは手元にないので、試せない。}
+また、RStudioとGitの連携において、テキストファイル以外を使うためには、工夫が必要なので、そちらについても軽く触れておく。
+\footnote{この資料では、RとRStudioのインストールが終わっていることを前提とする。}
 
 
-## 最終更新日時
+## 最終更新時の情報
 
-このファイルの最終更新日時：`r Sys.time()`
+* このファイルの最終更新日時：`r Sys.time()`
+* Rのバージョン：3.2.4 Revised
+* RStudioのバージョン：00.99.893
+* Gitのバージョン：2.7.1
 
 
 # Gitとは？
 
-コードを書いたファイル（テキストファイル）をバージョン管理する際に、変更のたびにファイル名を変えて履歴を管理すると、ファイル数がふくれあがっていく。Gitは、そういう問題を解決するために、ファイルの「変更履歴を記録」しておくための仕組みとなる。
+コードを書いたファイル（テキストファイル）をバージョン管理する際に、変更のたびにファイル名を変えて履歴を管理すると、ファイル数がふくれあがっていく。
+Gitは、そういう問題を解決するために、ファイルの「変更履歴を記録」しておくための仕組みとなる。
 
-サルでもわかるGit入門\footnote{http://www.backlog.jp/git-guide/}の入門編までを読んでみると使い方の簡単な説明があり、すごく理解の助けになる。最終的には、発展編のbranchまで理解しておきたい。
+サルでもわかるGit入門\footnote{http://www.backlog.jp/git-guide/}の入門編までを読んでみると使い方の簡単な説明があり、すごく理解の助けになる。
+最終的には、発展編のbranchまで理解しておきたい。
+
+
+# Gitのインストール
+
+Git本家\footnote{https://git-scm.com/}から最新版（Git-2.8.2-64-bit.exe：64bitシステムの場合）をダウンロードし、インストールする。
+オプションはよく読んで設定する。
+<!-- 以下にいくつかの設定例を示しているが、オプションは、インストールするバージョンによって順番が変わったりするので、一度全てに目を通してからインストールを開始すると良い。 -->
+<!-- よくわからない場合は、すべてデフォルトでも良いと思うが、インストールの際に共有相手と相談すること。 -->
+
+
+<!-- ## Select Component -->
+
+<!-- * Additional icon: クイックランチやデスクトップのショートカットアイコンは邪魔なので、すべてOffにする。 -->
+<!-- * Use a True Type font～: Onにすると文字化けするらしい。 -->
+<!-- * 他はそのままでNext -->
+
+
+<!-- ## Select Start Menu Folder -->
+
+<!-- とくに変更する必要はないのでそのままにする。 -->
+
+
+<!-- ## Adjusting your PATH environment -->
+
+<!-- PATHの設定。わからなければ、「Run Git from the Windows Command Prompt」を選択する。 -->
+
+<!-- * Use Git Bash only: PATHを設定しない。Git BashからのみGitコマンドが使用可能 -->
+<!-- * Run Git from the Windows Command Prompt: git/gitkコマンドだけPATHに設定 -->
+<!-- * Run Git and includeed Unix tools from the Windows Command Prompt：git/gitkとmsysのコマンドもPATHに設定 -->
+
+
+<!-- ## Configuring the line ending conversions -->
+
+<!-- 改行コードの設定に関する項目だが、後で変更可能なので、わからなければそのままでかまわない。\footnote{http://d.hatena.ne.jp/xyk/20130920/1379659991} -->
+
+
+<!-- ## Configuring the terminal emulator to use with Git Bash -->
+
+<!-- そのままでかまわない。 -->
+
+<!-- * Use MinTTY (the default terminal of MSys2) -->
+<!-- * Use Windows' default console window -->
+
+
+<!-- ## Configuring experimental performance tweaks -->
+
+<!-- わからないので、そのままOff。 -->
+
+
+# Gitのセットアップ
+
+残念ながら、Gitはインストールしてすぐ簡単に使えるものではない。
+最低限必要な設定などを以下にまとめておく。
+
+
+## Gitの設定
+
+最低限やることは以下の通り。
+
+1. すべてのプログラム->Git->Git Bashより、以下のコマンドを用いてGitに作業者の情報を登録する。
+当然、メールアドレスと、名前は自分のものに変更する。
+名前は、半角英数のみに限定しておいた方が、余計なトラブルを起こさない。
+\footnote{個人的には、トラブルは可能な限り避けたいので、ニックネームを使って名前にもスペースを入れないようにしている。}
+
+> git config \--global user.email “GitやGitHub、Bitbucketで使うメールアドレス”  
+> git config \--global user.name “Gitで使う名前”
+
+ここの設定を怠ると、誰がコードに変更を加えたのかがわからなくなるので、十分に注意して設定する。
+特にGitHubやBitbucketなどリモート環境での共有・管理を考えている場合は、登録したメールアドレスを使っておくと楽である。
+（さらにそもそもGitHubやBitbucketに登録するユーザ名・メールアドレスは統一しておくと便利。）
+下記のコマンドで設定の確認ができるので、試しておくと良い。
+
+> git config \--list
+
+
+## RStudioでGitを有効にする
+
+RStudio側でもGitを有効にする必要がある。
+\footnote{勝手に選んでくれている時もあるが、一応確認しておく。}
+
+1. RStudioで、「Tools」->「Global Options...」->「Git/SVN」を選択
+2. Enable version control interface for RStudio projectsにチェックを入れる。
+3. Git executable:に「C:/Program Files/Git/bin/git.exe」を追加（Browse...からgit.exeを探せば良い）
+
+
+## プロジェクトでGitを有効にする
+
+RStudioでGitを有効にしても、勝手に全てのプロジェクトでGitが有効になるわけではない。
+プロジェクトごとにGitを有効にする必要がある。
+\footnote{もちろん、有効にしなくても普通にRStudioは使える。}
+
+
+### Gitが有効な新規プロジェクトの作成
+
+RStudioとGitの連携では、基本的にリモートのレポジトリを使うことが想定されている。
+なので、事前にGitHubかBitbucketにレポジトリを作成しておくとよい。
+
+1. 「New project」->「Version Control」->「Git」を選択
+2. 「Repository URL:」にリモートリポジトリのURLを貼り付ける。
+\footnote{例: https://github.com/takeshou/rstudiogit.git}
+問題がなければ、自動で、「Project directory name:」も入力される。
+3. 「Create project as subdirectory of:」に、プロジェクトのフォルダを作成するフォルダを指定する。
+\footnote{Macだと自動では入らない上、うまく行かない場合もある。
+コレについては、手元にMacがないので、調べられないが、どうにかしたいので、知っている人はコメントなどで教えていただけると助かります。}
+
+
+### 既存のプロジェクトでGitを有効にする
+
+1. 「Tools」->「Project Options...」->「Git/SVN」を選択
+2. 「Version control system:」で「Git」を選択
+
+この場合、リモートの指定は、GitタブのMoreから、Shellを開いて、以下のように行う。
+
+> git remote add origin "リモートリポジトリのURL"
+
+この作業は、最初は複雑に思えるので、できる限り、新規にプロジェクトを作るように考えるとよい。
 
